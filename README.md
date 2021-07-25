@@ -1,11 +1,31 @@
----
-title: Docker Registry User Interface
----
-
 # Docker Registry UI
 
-![Stars](https://img.shields.io/github/stars/joxit/docker-registry-ui.svg?logo=github&maxAge=86400)
-![Pulls](https://img.shields.io/docker/pulls/joxit/docker-registry-ui.svg?maxAge=86400)
+## Fork Information
+This is a fork of [Joxit/docker-registry-ui](https://github.com/Joxit/docker-registry-ui).  This fork modifies the [Helm chart](examples/helm/docker-registry-ui) to be compatible with the latest version of `docker-registry-ui` and provides support for Load Balancing services like MetalLB to expose both a private registry and a UI for the registry externally.
+
+To run, perform a Helm deployment similar to:
+
+
+```bash
+$ helm upgrade container-image-registry \
+--install \
+--debug \
+--set ui.title=container-images \
+--set ui.service.type=LoadBalancer \
+--set ui.service.lbIp=10.10.10.2 \
+--set ui.delete_images=true \
+--set ui.url=\'http://container-images-viewer\'\\,\'http://container-images-viewer.network\' \
+--set ui.pullUrl=http://container-images.network \
+--set registry.url=http://container-images.network \
+--set registry.service.type=LoadBalancer \
+--set registry.service.lbIp=10.10.10.1 \
+--set registry.service.port=80 \
+--set registry.persistence.enabled=true \
+--set registry.persistence.storageClass=network-nfs \
+--set registry.persistence.size=10Gi \
+.
+
+```
 
 ## Overview
 
