@@ -6,6 +6,8 @@ metadata:
 {{ include "docker-registry-ui.labels" . | indent 4 }}
 spec:
   type: {{ .Values.ui.service.type }}
+  externalTrafficPolicy: Local
+  loadBalancerIP: {{ .Values.ui.service.lbIp }}
   ports:
     - port: {{ .Values.ui.service.port }}
       targetPort: http

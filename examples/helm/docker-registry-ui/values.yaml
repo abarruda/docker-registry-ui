@@ -11,25 +11,27 @@ ui:
   # UI behave as a proxy of the registry
   proxy: true
 
+  url: 
+
   replicaCount: 1
   image:
     registry: docker.io
     repository: joxit/docker-registry-ui
-    tag: static
+    tag: latest
     pullPolicy: Always
   probe:
     liveness: true
     readiness: true
 
-  resources: {}
+  resources:
   # If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+    limits:
+      cpu: 100m
+      memory: 48Mi
+    requests:
+      cpu: 100m
+      memory: 24Mi
   nodeSelector: {}
   tolerations: []
   affinity: {}
@@ -38,6 +40,7 @@ ui:
   service:
     type: ClusterIP
     port: 80
+    lbIp:
 
   ingress:
     enabled: false
@@ -68,15 +71,15 @@ registry:
   probe:
     liveness: true
     readiness: true
-  resources: {}
+  resources:
   # If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #   cpu: 100m
-  #   memory: 128Mi
-  # requests:
-  #   cpu: 100m
-  #   memory: 128Mi
+    limits:
+      cpu: 100m
+      memory: 64Mi
+    requests:
+      cpu: 100m
+      memory: 32Mi
   nodeSelector: {}
   tolerations: []
   affinity: {}
@@ -111,6 +114,7 @@ registry:
   service:
     type: ClusterIP
     port: 5000
+    lbIp: 
 
   ingress:
     enabled: false

@@ -27,10 +27,12 @@ spec:
               value: {{ .Values.ui.title| quote }}
             - name: DELETE_IMAGES
               value: {{ .Values.ui.delete_images| quote }}
-            - name: {{ include "docker-registry-ui.url-name" . }}
-              value: {{ include "docker-registry-ui.url-value" . | quote }}
+            # - name: {{ include "docker-registry-ui.url-name" . }}
+            #   value: {{ include "docker-registry-ui.url-value" . | quote }}
+            - name: REGISTRY_URL
+              value: {{ .Values.registry.url }}
             - name: PULL_URL
-              value: {{ include "docker-registry-ui.pull" . | quote }}
+              value: {{ .Values.ui.pullUrl | quote }}
           ports:
             - name: http
               containerPort: 80

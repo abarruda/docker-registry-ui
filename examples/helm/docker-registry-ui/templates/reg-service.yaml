@@ -7,6 +7,8 @@ metadata:
 {{ include "docker-registry.labels" . | indent 4 }}
 spec:
   type: {{ .Values.registry.service.type }}
+  externalTrafficPolicy: Local
+  loadBalancerIP: {{ .Values.registry.service.lbIp }}
   ports:
     - port: {{ .Values.registry.service.port }}
       targetPort: registry
